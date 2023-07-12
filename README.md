@@ -1,4 +1,4 @@
-# nishika-yasai-2023-spring
+# template
 ## 環境構築
 ```bash
 sudo apt update && sudo apt upgrade
