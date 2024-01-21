@@ -1,20 +1,15 @@
-# syntax=docker/dockerfile:1
+FROM nvidia/cuda:11.7.1-cudnn8-devel-ubuntu22.04
 
-FROM python:3.10.12-slim-bookworm
-
-ARG dirname="/code"
+ARG dirname="/work"
 
 RUN apt-get update -y &&\
     apt-get upgrade -y && \
-    apt-get install -y vim tmux libgomp1
+    apt-get install -y vim tmux libgomp1 libgl1-mesa-dev libglib2.0-0 && \
+    apt-get install -y python3-dev python3-pip python3-setuptools
 
 RUN mkdir $dirname
 WORKDIR $dirname
 
-ENV VIRTUAL_ENV=/opt/venv
-RUN python3 -m venv $VIRTUAL_ENV
-ENV PATH="$VIRTUAL_ENV/bin:$PATH"
-
-COPY . ./
+COPY ./ ./
 RUN pip3 install --upgrade pip && \
     pip3 install -r ./requirements.txt
